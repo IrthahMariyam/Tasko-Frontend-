@@ -1,0 +1,53 @@
+
+# Dependencies
+node_modules/
+
+
+# Environment
+.env
+.env.*
+!.env.example
+
+
+# Build Output
+dist/
+dist-ssr/
+
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+
+# Local Configuration
+*.local
+
+
+# Cache
+.eslintcache
+.vite/
+
+
+# IDE
+.vscode/*
+!.vscode/extensions.json
+.idea/
+
+
+# Operating System
+.DS_Store
+Thumbs.db
+
+
+# Temporary Files
+*.tmp
+*.temp
+
+# Ignore local Prettier configurations
+.prettierrc
+.prettierignore
