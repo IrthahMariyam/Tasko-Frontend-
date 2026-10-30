@@ -7,6 +7,7 @@ import PublicRoutes from './PublicRoutes';
 import ProtectedRoutes from './ProtectedRoutes';
 import LoginPage from '@/features/auth/pages/login';
 import DashboardPage from '@/features/dashboard/pages/DashBoard';
+import LandingPage from '@/features/landing/pages/LandingPage';
 
 
 function AppRoutes(){
@@ -15,6 +16,8 @@ function AppRoutes(){
    <Routes>
     {/*Public*/}
     <Route element={<PublicRoutes/>}>
+     <Route path='/' element ={<LandingPage/>}/>
+     
     <Route path='/login' element={<LoginPage/>}></Route>
     
     </Route>
