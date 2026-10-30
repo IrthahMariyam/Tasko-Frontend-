@@ -1,39 +1,29 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { login } from "../services/auth.services";
-import { UserAuth } from "../store/store";
+
+import { useLogin } from "../hooks/useLogin";
 
 function LoginPage() {
   const navigate = useNavigate();
-  const setAuth = UserAuth((state) => state.login);
+  const loginMutation = useLogin();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
 
   async function handleSubmit(
     event: React.FormEvent<HTMLFormElement>
   ) {
     event.preventDefault();
 
-    setError("");
-    setIsLoading(true);
-
     try {
-      const response = await login({ email, password });
-
-      setAuth(response.user, response.token);
+      await loginMutation.mutateAsync({
+        email,
+        password,
+      });
 
       navigate("/dashboard", { replace: true });
-    } catch (error: unknown) {
-      setError(
-        error instanceof Error
-          ? error.message
-          : "Something went wrong"
-      );
-    } finally {
-      setIsLoading(false);
+    } catch {
+      
     }
   }
 
@@ -57,10 +47,17 @@ function LoginPage() {
         required
       />
 
-      {error && <p role="alert">{error}</p>}
+      {loginMutation.isError && (
+        <p role="alert">
+          {loginMutation.error.message}
+        </p>
+      )}
 
-      <button type="submit" disabled={isLoading}>
-        {isLoading ? "Logging in..." : "Login"}
+      <button
+        type="submit"
+        disabled={loginMutation.isPending}
+      >
+        {loginMutation.isPending ? "Logging in..." : "Login"}
       </button>
     </form>
   );
