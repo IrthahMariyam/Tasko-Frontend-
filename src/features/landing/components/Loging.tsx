@@ -1,6 +1,9 @@
 import { Link } from "react-router-dom";
-
+import { UserAuth } from "@/features/auth/store/store";
 const Loging = () => {
+    const { user, token, isHydrated } = UserAuth();
+
+const isLoggedIn = isHydrated && !!user && !!token;
   return (
       <section className="py-20">
         <div className="mx-auto max-w-4xl px-6 text-center">
@@ -12,12 +15,21 @@ const Loging = () => {
               Sign in to continue to your workspace.
             </p>
             <div className="flex flex-col justify-center gap-4 sm:flex-row">
-              <Link
+             {isLoggedIn ? (
+                <Link
+                className="rounded-xl bg-white px-8 py-4 text-lg font-semibold text-indigo-600 shadow-lg transition hover:bg-slate-50"
+                to="/dashboard"
+              >
+                Dashboard
+              </Link>
+             ):
+              (<Link
                 className="rounded-xl bg-white px-8 py-4 text-lg font-semibold text-indigo-600 shadow-lg transition hover:bg-slate-50"
                 to="/login"
               >
                 Login
               </Link>
+             )}
             </div>
           </div>
         </div>

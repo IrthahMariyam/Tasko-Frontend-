@@ -5,15 +5,21 @@ import type {
   LoginRequest,
   LoginResponse,
 } from "../types/types";
-
+import { getErrorMessage } from "@/shared/utils/ApiErrorMessage";
 export function useLogin() {
   const setAuth = UserAuth((state) => state.login);
 
   return useMutation<LoginResponse, Error, LoginRequest>({
-    mutationFn: login,
+    mutationFn: async (credentials) => {
+      try {
+        return await login(credentials);
+      } catch (error) {
+        throw new Error(getErrorMessage(error));
+      }
+    },
 
     onSuccess: (response) => {
-      setAuth(response.user, response.token);
+      setAuth(response.user, response.accessToken);
     },
   });
 }

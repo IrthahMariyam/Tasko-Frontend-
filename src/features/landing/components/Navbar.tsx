@@ -1,8 +1,12 @@
 import { Link } from "react-router-dom";
 import {  Code2 } from "lucide-react";
-
+import { UserAuth } from "@/features/auth/store/store";
 
 const Navbar = () => {
+    const { user, token, isHydrated } = UserAuth();
+
+const isLoggedIn = isHydrated && !!user && !!token;
+
   return (
     
       <nav className="sticky top-0 z-50 border-b border-slate-200 bg-white/80 backdrop-blur-sm">
@@ -32,12 +36,21 @@ const Navbar = () => {
             >
               About
             </a>
-            <Link
-              className="rounded-lg bg-indigo-600 px-5 py-2 font-semibold text-white shadow-sm transition hover:bg-indigo-700"
-              to="/login"
-            >
-              Login
-            </Link>
+           {isLoggedIn ? (
+  <Link
+    className="rounded-lg bg-indigo-600 px-5 py-2 font-semibold text-white shadow-sm transition hover:bg-indigo-700"
+    to="/dashboard"
+  >
+    Dashboard
+  </Link>
+) : (
+  <Link
+    className="rounded-lg bg-indigo-600 px-5 py-2 font-semibold text-white shadow-sm transition hover:bg-indigo-700"
+    to="/login"
+  >
+    Login
+  </Link>
+)}
           </div>
         </div>
       </nav>

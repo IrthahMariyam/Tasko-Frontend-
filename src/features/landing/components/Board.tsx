@@ -4,6 +4,7 @@ import {
   CheckCircle,
    Zap,
 } from "lucide-react";
+import { UserAuth } from "@/features/auth/store/store";
 const boardColumns = [
   {
     title: "To do",
@@ -22,6 +23,9 @@ const boardColumns = [
   },
 ];
 const Board = () => {
+    const { user, token, isHydrated } = UserAuth();
+
+const isLoggedIn = isHydrated && !!user && !!token;
   return (
       <section className="mx-auto grid max-w-7xl items-center gap-12 px-6 pb-24 pt-20 lg:grid-cols-2">
         <div>
@@ -40,12 +44,20 @@ const Board = () => {
             priorities, role-based access, and fast auth flows for project work.
           </p>
           <div className="flex flex-col gap-4 sm:flex-row">
+          {isLoggedIn ? (
             <Link
+              className="flex items-center justify-center gap-2 rounded-xl bg-indigo-600 px-8 py-4 text-lg font-semibold text-white shadow-lg transition hover:bg-indigo-700 hover:shadow-xl"
+              to="/dashboard"
+            >
+              Dashboard <ArrowRight className="h-5 w-5" />
+            </Link>
+            ):(<Link
               className="flex items-center justify-center gap-2 rounded-xl bg-indigo-600 px-8 py-4 text-lg font-semibold text-white shadow-lg transition hover:bg-indigo-700 hover:shadow-xl"
               to="/login"
             >
               Login <ArrowRight className="h-5 w-5" />
             </Link>
+            )}
           </div>
           <div className="mt-10 flex flex-wrap gap-6 text-sm font-medium text-slate-600">
             <span className="flex items-center gap-2">

@@ -24,9 +24,12 @@ export type LoginRequest = {
 };
 
 export type LoginResponse = {
-  user: User;
-  token: string;
-}
+  message: string;
+   user: User;
+    accessToken: string;
+    role: UserRole;
+  
+};
 
 
 

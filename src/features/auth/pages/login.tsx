@@ -87,6 +87,7 @@ export default function Login() {
                   <input
                     className="block w-full rounded-lg border border-gray-300 py-3 pl-10 pr-3 outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
                     id="password"
+                    type='password'
                     placeholder="Enter your password"
                     {...register("password")}
                     aria-invalid={!!errors.password}
