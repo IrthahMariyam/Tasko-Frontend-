@@ -16,3 +16,11 @@ export async function login(
   return response.data
 }
 
+export async function logout():Promise<void>{
+  await api.post('auth/logout')
+}
+
+export async function refreshAccessToken(){
+  const response = await api.post('/auth/refresh')
+  return response.data.accessToken
+}
